@@ -6,15 +6,21 @@ import java.util.Comparator;
 import java.util.List;
 
 import fr.univavignon.pokedex.api.IPokedex;
+import fr.univavignon.pokedex.api.IPokemonMetadataProvider;
 import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 import fr.univavignon.pokedex.api.PokemonMetadata;
 
 public class Pokedex implements IPokedex {
 	private List<Pokemon> pokemons;
+	private IPokemonMetadataProvider pmp;//decorator
+	private PokemonFactory pf;//decorator
+	
 	
 	public Pokedex(){
 		this.setPokemons(new ArrayList<>(256));//si c'est pokemon GO, on juge qu'au départ on peut avoir au max 250 pokemon
+		this.setPmp(PokemonMetadataProvider.getInstance());//on recupere le singleton
+		this.setPf(PokemonFactory.getInstance());//on recupere le singleton
 	}
 
 	
@@ -29,7 +35,7 @@ public class Pokedex implements IPokedex {
 	@Override
 	public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
 		//Utilisation du singleton PokemonMetadataProvider
-		return PokemonMetadataProvider.getInstance().getPokemonMetadata(index);
+		return this.getPmp().getPokemonMetadata(index);
 	}
 
 	
@@ -45,7 +51,7 @@ public class Pokedex implements IPokedex {
 	@Override
 	public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
 		//Utilisation du singleton PokemonFactory
-		return PokemonFactory.getInstance().createPokemon(index, cp, hp, dust, candy);
+		return this.getPf().createPokemon(index, cp, hp, dust, candy);
 	}
 
 	/**
@@ -125,5 +131,25 @@ public class Pokedex implements IPokedex {
 	 */
 	public void setPokemons(List<Pokemon> pokemons) {
 		this.pokemons = pokemons;
+	}
+
+
+	public IPokemonMetadataProvider getPmp() {
+		return pmp;
+	}
+
+
+	public void setPmp(IPokemonMetadataProvider pmp) {
+		this.pmp = pmp;
+	}
+
+
+	public PokemonFactory getPf() {
+		return pf;
+	}
+
+
+	public void setPf(PokemonFactory pf) {
+		this.pf = pf;
 	}
 }
