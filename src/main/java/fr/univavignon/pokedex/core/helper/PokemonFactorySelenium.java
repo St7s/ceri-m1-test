@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class PokemonFactorySelenium {
@@ -19,11 +21,11 @@ public class PokemonFactorySelenium {
 	 */
 	public int findIv(String name, int cp, int hp, int dust) {
 		
-		//ChromeDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
-		//WebDriver driver = new ChromeDriver();
+		ChromeDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
+		WebDriver driver = new ChromeDriver();
 		
-		FirefoxDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
-		WebDriver driver = new FirefoxDriver();
+		//FirefoxDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
+		//WebDriver driver = new FirefoxDriver();
 		
 		driver.get(BASE_URL);
 		
