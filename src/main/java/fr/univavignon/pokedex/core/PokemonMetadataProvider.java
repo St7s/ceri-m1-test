@@ -39,28 +39,9 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 	 */
 	private PokemonMetadataProvider() {
 		this.cacheListPokemonMetadata = new ArrayList<>(256);
-		this.getJson();
+		this.generateCachePokemonMetadata();
 	}
-
-	/**
-	 * 
-	 */
-
-	private void getJson() {
-		String genreJson;
-		try (final InputStream in = new URL(URL).openConnection().getInputStream()) {
-			genreJson = IOUtils.toString(in, "UTF-8");
-			JSONArray genreArray = new JSONArray(genreJson);	
-			for (Object object : genreArray) {
-				 JSONObject pok =  (JSONObject)object;
-				 LOGGER.debug("Pokemon n° " + (pok.getInt("PkMn")-1) + " added");
-				 this.cacheListPokemonMetadata.add(new PokemonMetadata((pok.getInt("PkMn")-1), pok.getString("Identifier"), pok.getInt("BaseAttack"), pok.getInt("BaseDefense"), pok.getInt("BaseStamina")));		 														
-			}
-			
-		
-		} catch (IOException e) { e.printStackTrace(); }
-	}
-
+	
 	/**
 	 * Point d'accès pour l'instance unique du singleton
 	 */
@@ -71,14 +52,30 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 		return INSTANCE;
 	}
 
+	/**
+	 * 
+	 */
+	private void generateCachePokemonMetadata() {
+		String genreJson;
+		try (final InputStream in = new URL(URL).openConnection().getInputStream()) {
+			genreJson = IOUtils.toString(in, "UTF-8");
+			JSONArray genreArray = new JSONArray(genreJson);	
+			for (Object object : genreArray) {
+				 JSONObject pok =  (JSONObject)object;
+				 LOGGER.info("Pokemon n° " + (pok.getInt("PkMn")-1) + " added");
+				 this.cacheListPokemonMetadata.add(new PokemonMetadata((pok.getInt("PkMn")-1), pok.getString("Identifier"), pok.getInt("BaseAttack"), pok.getInt("BaseDefense"), pok.getInt("BaseStamina")));		 														
+			}
+		} catch (IOException e) { e.printStackTrace(); }
+	}
+
+	
+
 	@Override
 	public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
 		if(index < 0 || index >= this.cacheListPokemonMetadata.size()){
 			throw new PokedexException("l'index "+ index +" ne corresponds à aucun pokemon");	
 		}else{
 			return this.cacheListPokemonMetadata.get(index);
-		}
-		
+		}	
 	}
-
 }

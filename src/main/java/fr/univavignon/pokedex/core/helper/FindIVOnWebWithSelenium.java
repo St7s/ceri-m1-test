@@ -8,8 +8,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 
-public class PokemonFactorySelenium {
+public class FindIVOnWebWithSelenium {
 	private final String BASE_URL = "https://pokeassistant.com/main/ivcalculator?locale=en";
+	private WebDriver driver;
+	
+	public FindIVOnWebWithSelenium(){
+		ChromeDriverManager.getInstance().setup(); //recupération de l'instance de chrome (pas reussi à faire marcher PhontomJS)
+		driver = new ChromeDriver(); //creation du driver de chrome
+		driver.get(BASE_URL);
+	}
 
 
 	/**
@@ -18,11 +25,6 @@ public class PokemonFactorySelenium {
 	 * @return
 	 */
 	public int findIv(String name, int cp, int hp, int dust) {
-		
-		ChromeDriverManager.getInstance().setup(); //recupération de l'instance de chrome
-		WebDriver driver = new ChromeDriver(); //creation du driver de chrome
-		
-		driver.get(BASE_URL);
 		
 		int n = -1;
 		try {
@@ -48,8 +50,16 @@ public class PokemonFactorySelenium {
 
 		} catch (NoSuchElementException e) { e.printStackTrace(); }
 		
-		driver.quit();
+		
 		
 		return n;
+	}
+
+
+	/**
+	 * On ferme le driver
+	 */
+	public void quit() {
+		driver.quit();	
 	}
 }

@@ -9,7 +9,7 @@ import fr.univavignon.pokedex.api.IPokemonFactory;
 import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 import fr.univavignon.pokedex.api.PokemonMetadata;
-import fr.univavignon.pokedex.core.helper.PokemonFactorySelenium;
+import fr.univavignon.pokedex.core.helper.FindIVOnWebWithSelenium;
 
 /**
  * 
@@ -50,9 +50,10 @@ public class PokemonFactory implements IPokemonFactory{
 		Pokemon p = null;
 		try {
 			pm = pmp.getPokemonMetadata(index);
-			PokemonFactorySelenium pfs = new PokemonFactorySelenium();
+			FindIVOnWebWithSelenium pfs = new FindIVOnWebWithSelenium();
 			int iv = pfs.findIv(pm.getName(), cp, hp, dust);
 			p = new Pokemon(index, pm.getName(), pm.getAttack(), pm.getDefense(), pm.getStamina(), cp, hp, dust, candy, iv);
+			pfs.quit();
 		} catch (PokedexException e) { LOGGER.error(e.getMessage() + "Impossible de créer le pokemon en raison d'un index invalide"); }
 		return p;
 	}
