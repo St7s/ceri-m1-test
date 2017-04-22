@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.opera.OperaDriver;
 
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.OperaDriverManager;
 
 public class PokemonFactorySelenium {
 	private final String BASE_URL = "https://pokeassistant.com/main/ivcalculator?locale=en";
@@ -21,8 +23,12 @@ public class PokemonFactorySelenium {
 		//ChromeDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
 		//ChromeDriver driver = new ChromeDriver();
 		
-		FirefoxDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
-		FirefoxDriver driver = new FirefoxDriver();
+		OperaDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
+		OperaDriver driver = new OperaDriver();
+		
+		
+		//FirefoxDriverManager.getInstance().setup(); //Firefox car impossible de faire marcher phantomJS ou chrome depuis circleCI
+		//FirefoxDriver driver = new FirefoxDriver();
 		
 		driver.get(BASE_URL);
 		
