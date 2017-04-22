@@ -23,11 +23,12 @@ public class IPokedexTest  {
 	private Pokemon pokemonBulbizarre;
 	private Pokemon pokemonAquali;
 	
-	private Pokemon pokemonBulbizarreInit;
-	private Pokemon pokemonAqualiInit; 
+	private Pokemon pokemonBulbizarreInit = new Pokemon(0, "Bulbasaur", 126, 126, 90, 613, 64, 4000, 4, 56);
+	private Pokemon pokemonAqualiInit = new Pokemon(133, "Vaporeon", 186, 168, 260, 1984, 172, 3500, 4, 69);
 	
 	@Mock private IPokedex iPokedexTest;
 	@Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
+	
 	
 	
 	/**
@@ -36,12 +37,9 @@ public class IPokedexTest  {
 	 */
 
 	@Before
-	public void setUp() throws PokedexException {
-		
+	public void setUp() throws PokedexException {	
 		MockitoAnnotations.initMocks(this);
-		//create 2 pokemons
-		pokemonBulbizarreInit = new Pokemon(0, "Bulbasaur", 126, 126, 90, 613, 64, 4000, 4, 56);
-		pokemonAqualiInit = new Pokemon(133, "Vaporeon", 186, 168, 260, 1984, 172, 3500, 4, 69);
+
 		
 		//create 2 returns when createPokemon on pokedex
 		when(getiPokedexTest().createPokemon(0, 613, 64, 4000, 4)).thenReturn(pokemonBulbizarreInit);
@@ -77,8 +75,11 @@ public class IPokedexTest  {
 		
 		
 		
+		//create return for getPokemonMetadata
+		when(getiPokedexTest().getPokemonMetadata(0)).thenReturn(new PokemonMetadata(0, "Bulbasaur", 126, 126, 90));
+		when(getiPokedexTest().getPokemonMetadata(133)).thenReturn(new PokemonMetadata(133, "Vaporeon", 186, 168, 260));
 		
-		
+	
 		
 		//create list for NAME
 		ArrayList<Pokemon> pokemonListByName = new ArrayList<Pokemon>();
@@ -119,6 +120,30 @@ public class IPokedexTest  {
 		assertEquals(1, indice1); //index = 0
 		// before size=2
 		assertEquals(2, getiPokedexTest().size());
+		
+	}
+	
+	@Test
+	public void testGetPokemonMetadata() throws PokedexException{
+		
+		PokemonMetadata p1 = getiPokedexTest().getPokemonMetadata(0);
+		
+		assertEquals(126, p1.getAttack());
+		assertEquals(126, p1.getDefense());
+		assertEquals(0, p1.getIndex());
+		assertEquals("Bulbasaur", p1.getName());
+		assertEquals(90, p1.getStamina());
+
+		
+		
+		PokemonMetadata p2 = getiPokedexTest().getPokemonMetadata(133);
+		
+		assertEquals(186, p2.getAttack());
+		assertEquals(168, p2.getDefense());
+		assertEquals(133, p2.getIndex());
+		assertEquals("Vaporeon", p2.getName());
+		assertEquals(260, p2.getStamina());
+	
 		
 	}
 	
