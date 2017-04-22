@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import fr.univavignon.pokedex.api.IPokedex;
+import fr.univavignon.pokedex.api.IPokemonFactory;
 import fr.univavignon.pokedex.api.IPokemonMetadataProvider;
 import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
@@ -14,7 +15,7 @@ import fr.univavignon.pokedex.api.PokemonMetadata;
 public class Pokedex implements IPokedex {
 	private List<Pokemon> pokemons;
 	private IPokemonMetadataProvider pmp;//decorator
-	private PokemonFactory pf;//decorator
+	private IPokemonFactory pf;//decorator
 	
 	
 	public Pokedex(){
@@ -24,6 +25,13 @@ public class Pokedex implements IPokedex {
 	}
 
 	
+	public Pokedex(IPokemonMetadataProvider metadataProvider, IPokemonFactory pokemonFactory) {
+		this.setPokemons(new ArrayList<>(256));//si c'est pokemon GO, on juge qu'au départ on peut avoir au max 250 pokemon
+		this.setPmp(metadataProvider);
+		this.setPf(pokemonFactory);
+	}
+
+
 	/**
 	 * Retrieves and returns the metadata for the pokemon
 	 * denoted by the given <tt>index</tt>.
@@ -144,12 +152,12 @@ public class Pokedex implements IPokedex {
 	}
 
 
-	public PokemonFactory getPf() {
+	public IPokemonFactory getPf() {
 		return pf;
 	}
 
 
-	public void setPf(PokemonFactory pf) {
+	public void setPf(IPokemonFactory pf) {
 		this.pf = pf;
 	}
 }
