@@ -155,32 +155,14 @@ public class IPokedexTest  {
 		int indice0 = addNewPokemon(getiPokedexTest().createPokemon(133, 1984, 172, 3500, 4));
 		pokemonAquali = getiPokedexTest().getPokemon(indice0);
 		
-		assertEquals(186, pokemonAquali.getAttack());
-		assertEquals(168, pokemonAquali.getDefense());
-		assertEquals(133, pokemonAquali.getIndex());
-		assertEquals("Vaporeon", pokemonAquali.getName());
-		assertEquals(260, pokemonAquali.getStamina());
-		assertEquals(69, pokemonAquali.getIv(), 0.001);
-		assertEquals(4, pokemonAquali.getCandy());
-		assertEquals(1984, pokemonAquali.getCp());
-		assertEquals(3500, pokemonAquali.getDust());
-		assertEquals(172, pokemonAquali.getHp());
+		runAssertOnPokemonAquali();//limit duplicate code	
 		
 		
 		int indice1 = addNewPokemon(getiPokedexTest().createPokemon(0, 613, 64, 4000, 4));
 		
 		pokemonBulbizarre = getiPokedexTest().getPokemon(indice1);
 		
-		assertEquals(126, pokemonBulbizarre.getAttack());
-		assertEquals(126, pokemonBulbizarre.getDefense());
-		assertEquals(0, pokemonBulbizarre.getIndex());
-		assertEquals("Bulbasaur", pokemonBulbizarre.getName());
-		assertEquals(90, pokemonBulbizarre.getStamina());
-		assertEquals(56, pokemonBulbizarre.getIv(), 0.001);
-		assertEquals(4, pokemonBulbizarre.getCandy());
-		assertEquals(613, pokemonBulbizarre.getCp());
-		assertEquals(4000, pokemonBulbizarre.getDust());
-		assertEquals(64, pokemonBulbizarre.getHp());	
+		runAssertOnPokemonBulbizarre();//limit duplicate code	
 	}
 	
 	@Test(expected=PokedexException.class)
@@ -198,30 +180,12 @@ public class IPokedexTest  {
 		
 		pokemonBulbizarre = list.get(0);
 		
-		assertEquals(126, pokemonBulbizarre.getAttack());
-		assertEquals(126, pokemonBulbizarre.getDefense());
-		assertEquals(0, pokemonBulbizarre.getIndex());
-		assertEquals("Bulbasaur", pokemonBulbizarre.getName());
-		assertEquals(90, pokemonBulbizarre.getStamina());
-		assertEquals(56, pokemonBulbizarre.getIv(), 0.001);
-		assertEquals(4, pokemonBulbizarre.getCandy());
-		assertEquals(613, pokemonBulbizarre.getCp());
-		assertEquals(4000, pokemonBulbizarre.getDust());
-		assertEquals(64, pokemonBulbizarre.getHp());
+		runAssertOnPokemonBulbizarre();//limit duplicate code	
 		
 		
 		pokemonAquali = list.get(1);
 		
-		assertEquals(186, pokemonAquali.getAttack());
-		assertEquals(168, pokemonAquali.getDefense());
-		assertEquals(133, pokemonAquali.getIndex());
-		assertEquals("Vaporeon", pokemonAquali.getName());
-		assertEquals(260, pokemonAquali.getStamina());
-		assertEquals(69, pokemonAquali.getIv(), 0.001);
-		assertEquals(4, pokemonAquali.getCandy());
-		assertEquals(1984, pokemonAquali.getCp());
-		assertEquals(3500, pokemonAquali.getDust());
-		assertEquals(172, pokemonAquali.getHp());
+		runAssertOnPokemonAquali();//limit duplicate code	
 	}
 	
 	@Test
@@ -272,13 +236,54 @@ public class IPokedexTest  {
 		indice++;//inutile quand c'est pas mocker
 		return id;
 	}
+	
+	
+	
+	
+	/******************************** HELPER ****************************************/
+	
+	/**
+	 * limit duplicate code and test getter on aquali generated
+	 */
+	public void runAssertOnPokemonAquali(){
+		assertEquals(186, pokemonAquali.getAttack());
+		assertEquals(168, pokemonAquali.getDefense());
+		assertEquals(133, pokemonAquali.getIndex());
+		assertEquals("Vaporeon", pokemonAquali.getName());
+		assertEquals(260, pokemonAquali.getStamina());
+		assertEquals(69, pokemonAquali.getIv(), 0.001);
+		assertEquals(4, pokemonAquali.getCandy());
+		assertEquals(1984, pokemonAquali.getCp());
+		assertEquals(3500, pokemonAquali.getDust());
+		assertEquals(172, pokemonAquali.getHp());
+	}
+	
+	/**
+	 * limit duplicate code and test getter on Bulbizarre generated
+	 */
+	public void runAssertOnPokemonBulbizarre(){
+		assertEquals(126, pokemonBulbizarre.getAttack());
+		assertEquals(126, pokemonBulbizarre.getDefense());
+		assertEquals(0, pokemonBulbizarre.getIndex());
+		assertEquals("Bulbasaur", pokemonBulbizarre.getName());
+		assertEquals(90, pokemonBulbizarre.getStamina());
+		assertEquals(56, pokemonBulbizarre.getIv(), 0.001);
+		assertEquals(4, pokemonBulbizarre.getCandy());
+		assertEquals(613, pokemonBulbizarre.getCp());
+		assertEquals(4000, pokemonBulbizarre.getDust());
+		assertEquals(64, pokemonBulbizarre.getHp());
+	}
 
 	
 
+	
+	
+	
+	/****************************** GETTERS && SETTERS ******************************/
 	
 	/**
 	 * 
-	 * @return
+	 * @return iPokedexTest
 	 */
 	public IPokedex getiPokedexTest() {
 		return iPokedexTest;
@@ -293,30 +298,40 @@ public class IPokedexTest  {
 	}
 
 
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public Pokemon getPokemonBulbizarreInit() {
 		return pokemonBulbizarreInit;
 	}
 
 
-
+	/**
+	 * 
+	 * @param pokemonBulbizarreInit
+	 */
 	public void setPokemonBulbizarreInit(Pokemon pokemonBulbizarreInit) {
 		this.pokemonBulbizarreInit = pokemonBulbizarreInit;
 	}
 
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public Pokemon getPokemonAqualiInit() {
 		return pokemonAqualiInit;
 	}
 
 
-
+	/**
+	 * 
+	 * @param pokemonAqualiInit
+	 */
 	public void setPokemonAqualiInit(Pokemon pokemonAqualiInit) {
 		this.pokemonAqualiInit = pokemonAqualiInit;
 	}
-
-
-
 
 }
