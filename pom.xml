@@ -55,7 +55,7 @@
 
 
 	</build>
-	
+	<!--
 	<reporting>
 	    <plugins>
 	      <plugin>
@@ -71,7 +71,7 @@
 	        </reportSets>
 	      </plugin>
 	    </plugins>
-	  </reporting>
+	  </reporting>-->
 
 
 
