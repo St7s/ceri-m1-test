@@ -4,7 +4,7 @@ machine:
     
 dependencies:
   override: 
-    - mvn clean# install -U #clean and force install dependencies
+    - mvn clean # install -U #clean and force install dependencies
 
 test:
   override:
