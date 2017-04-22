@@ -40,4 +40,37 @@ public class IPokedexFactoryTest {
 		//verify object is not null
 		assertNotNull(iPokedexFactory.createPokedex(iPokemonMetadataProvider, pokemonFactory));
 	}
+
+	/****************************** GETTERS && SETTERS ******************************/
+	public IPokemonFactory getPokemonFactory() {
+		return pokemonFactory;
+	}
+
+	public void setPokemonFactory(IPokemonFactory pokemonFactory) {
+		this.pokemonFactory = pokemonFactory;
+	}
+
+	public IPokemonMetadataProvider getiPokemonMetadataProvider() {
+		return iPokemonMetadataProvider;
+	}
+
+	public void setiPokemonMetadataProvider(IPokemonMetadataProvider iPokemonMetadataProvider) {
+		this.iPokemonMetadataProvider = iPokemonMetadataProvider;
+	}
+
+	public IPokedexFactory getiPokedexFactory() {
+		return iPokedexFactory;
+	}
+
+	public void setiPokedexFactory(IPokedexFactory iPokedexFactory) {
+		this.iPokedexFactory = iPokedexFactory;
+	}
+
+	public IPokedex getiPokedex() {
+		return iPokedex;
+	}
+
+	public void setiPokedex(IPokedex iPokedex) {
+		this.iPokedex = iPokedex;
+	}
 }
