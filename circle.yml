@@ -10,6 +10,7 @@ dependencies:
 test:
   override:
     - mvn test -Dtest=TestSuiteWithMock,TestSuiteWithMockImpl 
+    - mvn surefire-report:report
     - mvn jacoco:report
     - mvn com.gavinmogan:codacy-maven-plugin:coverage -DcoverageReportFile=target/site/jacoco/jacoco.xml -DprojectToken=$projectToken -DapiToken=$apiToken
   post:
