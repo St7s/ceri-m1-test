@@ -5,7 +5,7 @@ machine:
     
 dependencies:
   override: 
-    - mvn clean
+    - mvn clean install
 
 test:
   override:
