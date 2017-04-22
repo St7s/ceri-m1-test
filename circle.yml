@@ -1,14 +1,14 @@
 machine:
   java:
-    version: oraclejdk8
+    version: oraclejdk8 #java 8
     
 dependencies:
   override: 
-    - mvn clean install -U
+    - mvn clean install -U #clean and force install dependencies
 
 test:
   override:
-    - mvn test -Dtest=TestSuiteWithMock,TestSuiteWithMockImpl 
+    - mvn test -Dtest=TestSuiteWithMock,TestSuiteWithMockImpl # 2 suites tests
     - mvn jacoco:report
     - mvn com.gavinmogan:codacy-maven-plugin:coverage -DcoverageReportFile=target/site/jacoco/jacoco.xml -DprojectToken=$projectToken -DapiToken=$apiToken
   post:
@@ -18,7 +18,7 @@ test:
 general:
   branches:
     only:
-      - master # list of branches to build
+      - master # only the branch master
     
 
     
