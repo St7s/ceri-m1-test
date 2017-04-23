@@ -1,11 +1,15 @@
 package fr.univavignon.pokedex.api;
 
+import java.io.Serializable;
+
 /**
  * Trainer POJO.
  * 
  * @author fv
+ * @author modify by adrie
  */
-public class PokemonTrainer {
+public class PokemonTrainer implements Serializable {
+	private static final long serialVersionUID = 5676039693652862951L;
 
 	/** Trainer name. **/
 	private final String name;

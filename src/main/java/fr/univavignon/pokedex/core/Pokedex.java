@@ -1,5 +1,6 @@
 package fr.univavignon.pokedex.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,8 +13,10 @@ import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 import fr.univavignon.pokedex.api.PokemonMetadata;
 
-public class Pokedex implements IPokedex {
-	private List<Pokemon> pokemons;
+public class Pokedex implements IPokedex, Serializable {
+	private static final long serialVersionUID = 4469986313363831762L;
+	
+	private List<Pokemon> pokemons;//list des pokemons du pokedex
 	private IPokemonMetadataProvider pmp;//decorator
 	private IPokemonFactory pf;//decorator
 	

@@ -53,7 +53,7 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 	}
 
 	/**
-	 * 
+	 * On récupere en cache (dans un objet) toutes les données des pokemons
 	 */
 	private void generateCachePokemonMetadata() {
 		String genreJson;
