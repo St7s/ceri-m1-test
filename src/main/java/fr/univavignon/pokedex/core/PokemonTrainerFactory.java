@@ -51,13 +51,17 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 	}
 	
 	private PokemonTrainer trainerExist(final String name, final Team team, final IPokedexFactory pokedexFactory) throws FileNotFoundException, ClassNotFoundException, IOException{
-		StringBuilder sb = new StringBuilder(System.lineSeparator()
-				+"src"+System.lineSeparator()
-				+"main"+System.lineSeparator()
-				+"ressources"+System.lineSeparator()
-				+"db"+System.lineSeparator());
+		StringBuilder sb = new StringBuilder(".");
+		sb.append(File.separator);
+		sb.append("src");
+		sb.append(File.separator);
+		sb.append("main");
+		sb.append(File.separator);
+		sb.append("ressources");
+		sb.append(File.separator);
+		sb.append("db"+File.separator);
 		sb.append(team);
-		sb.append(System.lineSeparator());
+		sb.append(File.separator);
 		sb.append(name);
 		sb.append(".ser");
 		
