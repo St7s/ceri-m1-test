@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.mockito.internal.util.MockUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,9 +73,18 @@ public class PokemonTrainer implements Observer, Serializable {
 	 * @return pokedex
 	 */
 	public IPokedex getPokedex() {
-		if(setObs == false)
+		//si on est pas deja abone que le podedex n'est pas un mock
+		if(isSetObs() == false && !new MockUtil().isMock(this.pokedex))
 			((Pokedex)this.pokedex).addObserver(this);
 		return pokedex;
+	}
+
+	private boolean isSetObs() {
+		return setObs;
+	}
+
+	private void setSetObs(boolean setObs) {
+		this.setObs = setObs;
 	}
 
 	@Override

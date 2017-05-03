@@ -32,6 +32,7 @@ public class IPokemonTrainerFactoryTest {
 	@Before
     public void setUp() throws PokedexException  {
 		MockitoAnnotations.initMocks(this);
+	
 		
 		//create trainer VALOR
 		setPokemonTrainerVALOR(new PokemonTrainer("Stys", Team.VALOR, getiPokedexTest()));
