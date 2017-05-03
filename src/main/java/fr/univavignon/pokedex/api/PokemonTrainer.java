@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.univavignon.pokedex.core.Pokedex;
-import fr.univavignon.pokedex.core.PokemonTrainerFactory;
-import fr.univavignon.pokedex.api.*;
 
 /**
  * Trainer POJO.
@@ -36,7 +34,7 @@ public class PokemonTrainer implements Observer, Serializable {
 	private final IPokedex pokedex;
 	
 	/** Permet de savoir si le pokedex a deja était mis en observable ou non **/
-	private boolean setObs = false;
+	private boolean setObs;
 	
 	/**
 	 * Default constructor.
@@ -49,7 +47,7 @@ public class PokemonTrainer implements Observer, Serializable {
 		this.name = name;
 		this.team = team;
 		this.pokedex = pokedex;
-		
+		this.setSetObs(false);
 	}
 	
 	/**
@@ -74,7 +72,7 @@ public class PokemonTrainer implements Observer, Serializable {
 	 */
 	public IPokedex getPokedex() {
 		//si on est pas deja abone que le podedex n'est pas un mock
-		if(isSetObs() == false && !new MockUtil().isMock(this.pokedex))
+		if(!isSetObs() && !new MockUtil().isMock(this.pokedex))
 			((Pokedex)this.pokedex).addObserver(this);
 		return pokedex;
 	}
