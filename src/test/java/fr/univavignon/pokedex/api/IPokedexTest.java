@@ -154,13 +154,14 @@ public class IPokedexTest  {
 		
 		int indice0 = addNewPokemon(getiPokedexTest().createPokemon(133, 1984, 172, 3500, 4));
 		pokemonAquali = getiPokedexTest().getPokemon(indice0);
+		assertEquals(indice0, 0);
 		
 		runAssertOnPokemonAquali();//limit duplicate code	
 		
 		
 		int indice1 = addNewPokemon(getiPokedexTest().createPokemon(0, 613, 64, 4000, 4));
-		
 		pokemonBulbizarre = getiPokedexTest().getPokemon(indice1);
+		assertEquals(indice1, 1);
 		
 		runAssertOnPokemonBulbizarre();//limit duplicate code	
 	}

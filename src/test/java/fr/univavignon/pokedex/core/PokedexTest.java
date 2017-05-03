@@ -19,12 +19,6 @@ import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 
 public class PokedexTest extends IPokedexTest {
-	
-	
-
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
-
 
 	/**
 	 * setup
@@ -57,16 +51,14 @@ public class PokedexTest extends IPokedexTest {
 		
 		File fichier =  new File("./src/main/ressources/db/pokedex.ser") ;
 		System.out.println(fichier.getAbsolutePath());
-		oos = new ObjectOutputStream(new FileOutputStream(fichier));
-		 // sérialization de l'objet
-		oos.writeObject(getiPokedexTest()) ;
+		// sérialization de l'objet
+		new ObjectOutputStream(new FileOutputStream(fichier)).writeObject(getiPokedexTest()) ;
 		
 			
 		//Maintenant on récupere l'objet et on test
 		File fichier2 =  new File("./src/main/ressources/db/pokedex.ser") ;
-		ois = new ObjectInputStream(new FileInputStream(fichier2));
 		 // désérialization de l'objet
-		IPokedex podekekDuFichier = (IPokedex)ois.readObject() ;
+		IPokedex podekekDuFichier = (IPokedex)new ObjectInputStream(new FileInputStream(fichier2)).readObject() ;
 		
 		
 		

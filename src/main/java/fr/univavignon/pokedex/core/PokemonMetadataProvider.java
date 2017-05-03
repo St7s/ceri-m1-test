@@ -2,8 +2,6 @@ package fr.univavignon.pokedex.core;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
@@ -87,24 +85,4 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider, Serial
 		}	
 	}
 	
-	/**
-	 * méthode readObject, utilisée lors de la sérialization
-	 * @param ois
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
-	private  void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-		//comme on a rien serialize de ce singleton, on recreer l'instance
-		PokemonMetadataProvider.getInstance();
-	}
-	
-
-	/**
-	 * méthode writeObject, utilisée lors de la sérialization
-	 * @param oos
-	 * @throws IOException
-	 */
-	private  void writeObject(ObjectOutputStream oos) throws IOException { 
-		//on serialize rien car c'est un singleton
-	}
 }
