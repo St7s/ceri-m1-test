@@ -58,7 +58,7 @@ public class PokedexTest extends IPokedexTest {
 		//Maintenant on récupere l'objet et on test
 		File fichier2 =  new File("./src/main/ressources/db/pokedex.ser") ;
 		 // désérialization de l'objet
-		IPokedex podekekDuFichier = (IPokedex)new ObjectInputStream(new FileInputStream(fichier2)).readObject() ;
+		IPokedex podekekDuFichier = (IPokedex) new ObjectInputStream(new FileInputStream(fichier2)).readObject() ;
 		
 		
 		

@@ -12,9 +12,9 @@ public class PokemonFactoryTest extends IPokemonFactoryTest {
 	@Before
     public void setUp(){
 		
+		//on creer notre Factory
 		this.setiPokemonFactory(PokemonFactory.getInstance());
 		
 		//les 2 pokemons creer grace à la factory sont dans les tests
-	
 	}
 }

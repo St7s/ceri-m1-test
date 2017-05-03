@@ -1,6 +1,12 @@
 package fr.univavignon.pokedex.core;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +17,7 @@ import fr.univavignon.pokedex.api.PokemonTrainer;
 import fr.univavignon.pokedex.api.Team;
 
 public class PokemonTrainerFactory implements IPokemonTrainerFactory {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonMetadataProvider.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTrainerFactory.class);
 	private static PokemonTrainerFactory INSTANCE;
 	
 	
@@ -36,42 +42,51 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 
 	@Override
 	public PokemonTrainer createTrainer(String name, Team team, IPokedexFactory pokedexFactory) {
-	
-		System.out.println("Results : "+ 	trainerExist(name, team));
-		
-		return new PokemonTrainer(name, team, pokedexFactory.createPokedex(PokemonMetadataProvider.getInstance(), PokemonFactory.getInstance()));
+		try {
+			return trainerExist(name, team, pokedexFactory);
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	private String trainerExist(final String name, final Team team){
+	private PokemonTrainer trainerExist(final String name, final Team team, final IPokedexFactory pokedexFactory) throws FileNotFoundException, ClassNotFoundException, IOException{
 		StringBuilder sb = new StringBuilder(".\\src\\main\\ressources\\db\\");
 		sb.append(team);
+		sb.append("\\");
+		sb.append(name);
+		sb.append(".ser");
 		
-		String answer = null;
-		System.out.println(sb.toString());
+		LOGGER.info("we must find : " + sb.toString());
 		
+		File f = new File(sb.toString());
+		//si il existe
+		if (f.exists()){
+			LOGGER.info("the trainer EXIST in " + f.getAbsolutePath());
+			return deserializePokemonTrainer(f);
+		} else {
+			LOGGER.info("the trainer doesn't EXIST in " + f.getAbsolutePath());
+			
+			//on le creer
+			PokemonTrainer p = new PokemonTrainer(name, team, pokedexFactory.createPokedex(PokemonMetadataProvider.getInstance(), PokemonFactory.getInstance()));
+			
+			 // ouverture d'un flux sur un fichier
+			ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(f)) ;
+					
+			 // sérialization de l'objet (on le sauvegarde)
+			oos.writeObject(p) ;
+			return p;
+		}	
 		
-		//lister les fichiers
-		File folder = new File(sb.toString());
-		File[] listOfFiles = folder.listFiles();
-
-		for (File file : listOfFiles) {
-		    if (file.isFile()) {
-		    	LOGGER.info("search in db/"+ team + " : " + file.getName());
-		        if(file.getName().equals(name)){
-		        	LOGGER.info("the trainer EXIST in db/"+ team + " : " + file.getName());
-	        		answer = file.getName();
-	        		break;//on sort
-	        	}
-		    }
-		}
-		return answer;
 	}
 	
-	/*public static void main(String[] args) {
-		PokemonTrainerFactory ptf = PokemonTrainerFactory.getInstance();
-		PokemonTrainer t = ptf.createTrainer("3", Team.MYSTIC, PokedexFactory.getInstance());
-		//t.getPokedex().
-		
-	}*/
-
+	private PokemonTrainer deserializePokemonTrainer(final File fichier) throws FileNotFoundException, IOException, ClassNotFoundException{
+		 // ouverture d'un flux sur un fichier
+		ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
+				
+		 // désérialization de l'objet
+		return (PokemonTrainer)ois.readObject() ;
+	
+	}
+	
 }

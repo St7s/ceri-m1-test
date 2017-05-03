@@ -168,6 +168,7 @@ public class IPokedexTest  {
 	
 	@Test(expected=PokedexException.class)
 	public void testPokedexException() throws PokedexException   {
+		assertEquals(0, getiPokedexTest().size());
 		getiPokedexTest().getPokemon(999);	
 	}
 	

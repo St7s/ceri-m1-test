@@ -1,6 +1,6 @@
 package fr.univavignon.pokedex.api;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
 
 public class IPokemonTrainerFactoryTest {
 	
@@ -33,36 +34,84 @@ public class IPokemonTrainerFactoryTest {
 		MockitoAnnotations.initMocks(this);
 		
 		//create trainer VALOR
-		pokemonTrainerVALOR = new PokemonTrainer("Stys", Team.VALOR, iPokedexTest);
-		when(iPokemonTrainerFactory.createTrainer("Stys", Team.VALOR, iPokedexFactory)).thenReturn(pokemonTrainerVALOR);
+		setPokemonTrainerVALOR(new PokemonTrainer("Stys", Team.VALOR, getiPokedexTest()));
+		when(getiPokemonTrainerFactory().createTrainer("Stys", Team.VALOR, getiPokedexFactory())).thenReturn(getPokemonTrainerVALOR());
 		
 		//create trainer MYSTIC
-		pokemonTrainerMYSTIC = new PokemonTrainer("Enemy1", Team.MYSTIC, iPokedexTest);
-		when(iPokemonTrainerFactory.createTrainer("Enemy1", Team.MYSTIC, iPokedexFactory)).thenReturn(pokemonTrainerMYSTIC);
+		setPokemonTrainerMYSTIC(new PokemonTrainer("Enemy1", Team.MYSTIC, getiPokedexTest()));
+		when(getiPokemonTrainerFactory().createTrainer("Enemy1", Team.MYSTIC, getiPokedexFactory())).thenReturn(getPokemonTrainerMYSTIC());
 		
 		//create trainer INSTINCT
-		pokemonTrainerINSTINCT = new PokemonTrainer("Patricia", Team.INSTINCT, iPokedexTest);
-		when(iPokemonTrainerFactory.createTrainer("Patricia", Team.INSTINCT, iPokedexFactory)).thenReturn(pokemonTrainerINSTINCT);
+		setPokemonTrainerINSTINCT(new PokemonTrainer("Patricia", Team.INSTINCT, getiPokedexTest()));
+		when(getiPokemonTrainerFactory().createTrainer("Patricia", Team.INSTINCT, getiPokedexFactory())).thenReturn(getPokemonTrainerINSTINCT());
     }
 
 	@Test
-	public void testCreateTrainer() {
+	public void testCreateNewTrainer() {
 		//test for VALOR trainer
-		PokemonTrainer pokTrainerVALOR = iPokemonTrainerFactory.createTrainer("Stys", Team.VALOR, iPokedexFactory);
-		assertEquals(pokemonTrainerVALOR.getName(), pokTrainerVALOR.getName());
-		assertEquals(pokemonTrainerVALOR.getPokedex().getPokemons().size(), pokTrainerVALOR.getPokedex().getPokemons().size());
-		assertEquals(pokemonTrainerVALOR.getTeam(), pokTrainerVALOR.getTeam());
+		PokemonTrainer pokTrainerVALOR = getiPokemonTrainerFactory().createTrainer("Stys", Team.VALOR, getiPokedexFactory());
+		assertEquals("Stys", pokTrainerVALOR.getName());
+		assertEquals(0, pokTrainerVALOR.getPokedex().getPokemons().size());
+		assertEquals(Team.VALOR, pokTrainerVALOR.getTeam());
 		
 		//test for MYSTIC trainer
-		PokemonTrainer pokTrainerMYSTIC = iPokemonTrainerFactory.createTrainer("Enemy1", Team.MYSTIC, iPokedexFactory);
-		assertEquals(pokemonTrainerMYSTIC.getName(), pokTrainerMYSTIC.getName());
-		assertEquals(pokemonTrainerMYSTIC.getPokedex().getPokemons().size(), pokTrainerMYSTIC.getPokedex().getPokemons().size());
-		assertEquals(pokemonTrainerMYSTIC.getTeam(), pokTrainerMYSTIC.getTeam());
+		PokemonTrainer pokTrainerMYSTIC = getiPokemonTrainerFactory().createTrainer("Enemy1", Team.MYSTIC, getiPokedexFactory());
+		assertEquals("Enemy1", pokTrainerMYSTIC.getName());
+		assertEquals(0, pokTrainerMYSTIC.getPokedex().getPokemons().size());
+		assertEquals(Team.MYSTIC, pokTrainerMYSTIC.getTeam());
 		
 		//test for INSTINCT trainer
-		PokemonTrainer pokTrainerINSTINCT = iPokemonTrainerFactory.createTrainer("Patricia", Team.INSTINCT, iPokedexFactory);
-		assertEquals(pokemonTrainerINSTINCT.getName(), pokTrainerINSTINCT.getName());
-		assertEquals(pokemonTrainerINSTINCT.getPokedex().getPokemons().size(), pokTrainerINSTINCT.getPokedex().getPokemons().size());
-		assertEquals(pokemonTrainerINSTINCT.getTeam(), pokTrainerINSTINCT.getTeam());
+		PokemonTrainer pokTrainerINSTINCT = getiPokemonTrainerFactory().createTrainer("Patricia", Team.INSTINCT, getiPokedexFactory());
+		assertEquals("Patricia", pokTrainerINSTINCT.getName());
+		assertEquals(0, pokTrainerINSTINCT.getPokedex().getPokemons().size());
+		assertEquals(Team.INSTINCT, pokTrainerINSTINCT.getTeam());
+	}
+
+	public IPokemonTrainerFactory getiPokemonTrainerFactory() {
+		return iPokemonTrainerFactory;
+	}
+
+	public void setiPokemonTrainerFactory(IPokemonTrainerFactory iPokemonTrainerFactory) {
+		this.iPokemonTrainerFactory = iPokemonTrainerFactory;
+	}
+
+	public PokemonTrainer getPokemonTrainerVALOR() {
+		return pokemonTrainerVALOR;
+	}
+
+	public void setPokemonTrainerVALOR(PokemonTrainer pokemonTrainerVALOR) {
+		this.pokemonTrainerVALOR = pokemonTrainerVALOR;
+	}
+
+	public IPokedex getiPokedexTest() {
+		return iPokedexTest;
+	}
+
+	public void setiPokedexTest(IPokedex iPokedexTest) {
+		this.iPokedexTest = iPokedexTest;
+	}
+
+	public PokemonTrainer getPokemonTrainerMYSTIC() {
+		return pokemonTrainerMYSTIC;
+	}
+
+	public void setPokemonTrainerMYSTIC(PokemonTrainer pokemonTrainerMYSTIC) {
+		this.pokemonTrainerMYSTIC = pokemonTrainerMYSTIC;
+	}
+
+	public PokemonTrainer getPokemonTrainerINSTINCT() {
+		return pokemonTrainerINSTINCT;
+	}
+
+	public void setPokemonTrainerINSTINCT(PokemonTrainer pokemonTrainerINSTINCT) {
+		this.pokemonTrainerINSTINCT = pokemonTrainerINSTINCT;
+	}
+
+	public IPokedexFactory getiPokedexFactory() {
+		return iPokedexFactory;
+	}
+
+	public void setiPokedexFactory(IPokedexFactory iPokedexFactory) {
+		this.iPokedexFactory = iPokedexFactory;
 	}
 }
