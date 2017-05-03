@@ -16,6 +16,11 @@ import fr.univavignon.pokedex.api.IPokemonTrainerFactory;
 import fr.univavignon.pokedex.api.PokemonTrainer;
 import fr.univavignon.pokedex.api.Team;
 
+/**
+ * 
+ * @author adrie
+ *
+ */
 public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTrainerFactory.class);
 	private static PokemonTrainerFactory INSTANCE;
@@ -40,6 +45,14 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 	}
 
 
+	/**
+	 * Creation ou restauration d'un trainer
+	 * 
+	 * @param name Name of the created trainer.
+	 * @param team Team of the created trainer.
+	 * @param pokedexFactory Factory to use for creating associated pokedex instance.
+	 * @return Created trainer instance.
+	 */
 	@Override
 	public PokemonTrainer createTrainer(String name, Team team, IPokedexFactory pokedexFactory) {
 		try {
@@ -50,6 +63,16 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 		return null;
 	}
 	
+	/**
+	 * Méthode utile permettant de restaurer ou de creer un trainer
+	 * @param name
+	 * @param team
+	 * @param pokedexFactory
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	private PokemonTrainer trainerExist(final String name, final Team team, final IPokedexFactory pokedexFactory) throws FileNotFoundException, ClassNotFoundException, IOException{
 		StringBuilder sb = new StringBuilder(".");
 		sb.append(File.separator);
@@ -71,7 +94,7 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 		//si il existe
 		if (f.exists()){
 			LOGGER.info("the trainer EXIST in " + f.getAbsolutePath());
-			return deserializePokemonTrainer(f);
+			return deserializePokemonTrainer(f);//on le recuperer
 		} else {
 			LOGGER.info("the trainer doesn't EXIST in " + f.getAbsolutePath());
 			
@@ -88,6 +111,15 @@ public class PokemonTrainerFactory implements IPokemonTrainerFactory {
 		
 	}
 	
+	
+	/**
+	 * Méthode permetant de restaurer un trainer d'un fichier de serialization
+	 * @param fichier
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	private PokemonTrainer deserializePokemonTrainer(final File fichier) throws FileNotFoundException, IOException, ClassNotFoundException{
 		 // ouverture d'un flux sur un fichier
 		ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;

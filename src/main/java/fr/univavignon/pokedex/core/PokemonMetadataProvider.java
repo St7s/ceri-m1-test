@@ -66,6 +66,8 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider, Serial
 			for (Object object : genreArray) {
 				 JSONObject pok =  (JSONObject)object;
 				 LOGGER.info("Pokemon n° " + (pok.getInt("PkMn")-1) + " added");
+				 
+				 //on l'ajoute au cache
 				 this.cacheListPokemonMetadata.add(new PokemonMetadata((pok.getInt("PkMn")-1), pok.getString("Identifier"), pok.getInt("BaseAttack"), pok.getInt("BaseDefense"), pok.getInt("BaseStamina")));		 														
 			}
 		} catch (IOException e) { e.printStackTrace(); }

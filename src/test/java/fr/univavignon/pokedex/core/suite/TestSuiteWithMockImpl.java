@@ -12,7 +12,7 @@ import fr.univavignon.pokedex.core.PokemonTrainerFactoryTest;
 @RunWith(Suite.class)
 
 /**
- * Test suite with mock
+ * Test suite
  * @author adrie
  *
  */

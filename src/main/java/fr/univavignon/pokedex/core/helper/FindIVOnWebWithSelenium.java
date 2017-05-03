@@ -8,10 +8,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 
+
+/**
+ * Class permettant de recuper l'i d'un pokemon à partir d'un site web
+ * @author adrie
+ *
+ */
 public class FindIVOnWebWithSelenium {
 	private final String BASE_URL = "https://pokeassistant.com/main/ivcalculator?locale=en";
 	private WebDriver driver;
 	
+	/**
+	 * Constructeur
+	 */
 	public FindIVOnWebWithSelenium(){
 		ChromeDriverManager.getInstance().setup(); //recupération de l'instance de chrome (pas reussi à faire marcher PhontomJS)
 		driver = new ChromeDriver(); //creation du driver de chrome
@@ -43,15 +52,16 @@ public class FindIVOnWebWithSelenium {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) { e.printStackTrace(); }
 			
+			//on recupere la valeur
 			String res = ((WebElement) driver.findElement(By.xpath("//*[@id=\"possibleCombinationsStringmax\"]//b")))
 					.getText();
+			//on arrondi la valeur
 			n = Math.round(Float.parseFloat(res.replace("%", "")));
 			((WebElement) driver.findElement(By.xpath("//*[@id=\"search_pokemon_name\"]"))).sendKeys(n + "");
 
 		} catch (NoSuchElementException e) { e.printStackTrace(); }
 		
-		
-		
+		//on retorune l'iv
 		return n;
 	}
 

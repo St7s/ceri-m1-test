@@ -5,6 +5,11 @@ import fr.univavignon.pokedex.api.IPokedexFactory;
 import fr.univavignon.pokedex.api.IPokemonFactory;
 import fr.univavignon.pokedex.api.IPokemonMetadataProvider;
 
+/**
+ * 
+ * @author adrie
+ *
+ */
 public class PokedexFactory implements IPokedexFactory {
 	
 	private static PokedexFactory INSTANCE;
@@ -26,12 +31,18 @@ public class PokedexFactory implements IPokedexFactory {
 		return INSTANCE;
 	}
 
+
 	/**
+	 * Creates a new pokedex instance using the given 
+	 * <tt>metadataProvider</tt> and <tt>pokemonFactory</tt>. 
 	 * 
+	 * @param metadataProvider Metadata provider the created pokedex will use.
+	 * @param pokemonFactory Pokemon factory the created pokedex will use.
+	 * @return Created pokedex instance.
 	 */
 	@Override
 	public IPokedex createPokedex(IPokemonMetadataProvider metadataProvider, IPokemonFactory pokemonFactory) {
-		return new Pokedex(metadataProvider, pokemonFactory);
+		return new Pokedex(metadataProvider, pokemonFactory);//on retourne un pokedex
 	}
 
 }

@@ -17,6 +17,11 @@ import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 import fr.univavignon.pokedex.api.PokemonMetadata;
 
+/**
+ * 
+ * @author adrie
+ *
+ */
 public class Pokedex extends Observable implements IPokedex, Serializable  {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTrainerFactory.class);
 	private static final long serialVersionUID = 4469986313363831762L;
@@ -26,6 +31,9 @@ public class Pokedex extends Observable implements IPokedex, Serializable  {
 	private IPokemonFactory pf;//decorator
 	
 	
+	/**
+	 * Constructeur par défaut
+	 */
 	public Pokedex(){
 		this.setPokemons(new ArrayList<>(256));//si c'est pokemon GO, on juge qu'au départ on peut avoir au max 250 pokemon
 		this.setPmp(PokemonMetadataProvider.getInstance());//on recupere le singleton
@@ -33,6 +41,11 @@ public class Pokedex extends Observable implements IPokedex, Serializable  {
 	}
 
 	
+	/**
+	 * Constructeur
+	 * @param metadataProvider
+	 * @param pokemonFactory
+	 */
 	public Pokedex(IPokemonMetadataProvider metadataProvider, IPokemonFactory pokemonFactory) {
 		this.setPokemons(new ArrayList<>(256));//si c'est pokemon GO, on juge qu'au départ on peut avoir au max 250 pokemon
 		this.setPmp(metadataProvider);
@@ -155,21 +168,35 @@ public class Pokedex extends Observable implements IPokedex, Serializable  {
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public IPokemonMetadataProvider getPmp() {
 		return pmp;
 	}
 
 
+	/**
+	 * 
+	 * @param pmp
+	 */
 	public void setPmp(IPokemonMetadataProvider pmp) {
 		this.pmp = pmp;
 	}
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public IPokemonFactory getPf() {
 		return pf;
 	}
 
-
+	/**
+	 * 
+	 * @param pf
+	 */
 	public void setPf(IPokemonFactory pf) {
 		this.pf = pf;
 	}

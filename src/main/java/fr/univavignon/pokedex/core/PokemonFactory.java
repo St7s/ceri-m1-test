@@ -54,7 +54,7 @@ public class PokemonFactory implements IPokemonFactory, Serializable {
 		try {
 			pm = pmp.getPokemonMetadata(index);
 			FindIVOnWebWithSelenium pfs = new FindIVOnWebWithSelenium();
-			int iv = pfs.findIv(pm.getName(), cp, hp, dust);
+			int iv = pfs.findIv(pm.getName(), cp, hp, dust); //on cherche l'iv
 			p = new Pokemon(index, pm.getName(), pm.getAttack(), pm.getDefense(), pm.getStamina(), cp, hp, dust, candy, iv);
 			pfs.quit();
 		} catch (PokedexException e) { LOGGER.error(e.getMessage() + "Impossible de créer le pokemon en raison d'un index invalide"); }
