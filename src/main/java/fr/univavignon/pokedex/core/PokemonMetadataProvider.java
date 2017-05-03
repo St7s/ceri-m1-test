@@ -2,6 +2,9 @@ package fr.univavignon.pokedex.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,9 @@ import fr.univavignon.pokedex.api.PokemonMetadata;
  * @author adrie
  *
  */
-public class PokemonMetadataProvider implements IPokemonMetadataProvider {
+public class PokemonMetadataProvider implements IPokemonMetadataProvider, Serializable {
+
+	private static final long serialVersionUID = 6109431017454626938L;
 
 	/**
 	 * Instance unique non préinitialisée
@@ -70,6 +75,9 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 
 	
 
+	/**
+	 * on recupere les metadata d'un pokemon en fonction de son id
+	 */
 	@Override
 	public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
 		if(index < 0 || index >= this.cacheListPokemonMetadata.size()){
@@ -77,5 +85,26 @@ public class PokemonMetadataProvider implements IPokemonMetadataProvider {
 		}else{
 			return this.cacheListPokemonMetadata.get(index);
 		}	
+	}
+	
+	/**
+	 * méthode readObject, utilisée lors de la sérialization
+	 * @param ois
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	private  void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		//comme on a rien serialize de ce singleton, on recreer l'instance
+		PokemonMetadataProvider.getInstance();
+	}
+	
+
+	/**
+	 * méthode writeObject, utilisée lors de la sérialization
+	 * @param oos
+	 * @throws IOException
+	 */
+	private  void writeObject(ObjectOutputStream oos) throws IOException { 
+		//on serialize rien car c'est un singleton
 	}
 }

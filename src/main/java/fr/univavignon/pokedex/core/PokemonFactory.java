@@ -1,6 +1,7 @@
 package fr.univavignon.pokedex.core;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +17,10 @@ import fr.univavignon.pokedex.core.helper.FindIVOnWebWithSelenium;
  * @author adrie
  *
  */
-public class PokemonFactory implements IPokemonFactory{
-	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonMetadataProvider.class);
+public class PokemonFactory implements IPokemonFactory, Serializable {
+	private static final long serialVersionUID = -3937465193257293713L;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonFactory.class);
 	private static PokemonFactory INSTANCE;
 	
 	

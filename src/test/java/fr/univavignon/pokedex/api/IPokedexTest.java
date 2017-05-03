@@ -20,7 +20,7 @@ public class IPokedexTest  {
 	private int size;
 	private int indice;
 	
-	private Pokemon pokemonBulbizarre;
+	public Pokemon pokemonBulbizarre;
 	private Pokemon pokemonAquali;
 	
 	private Pokemon pokemonBulbizarreInit = new Pokemon(0, "Bulbasaur", 126, 126, 90, 613, 64, 4000, 4, 56);
@@ -222,6 +222,11 @@ public class IPokedexTest  {
 	}
 	
 
+
+	
+	
+	/******************************** HELPER ****************************************/
+	
 	/**
 	 * Méthode pour ajouter un pokemon, changer la taille et l'indice attendu pour les mocks
 	 * Method for add Pokemon and change the size and the indice
@@ -237,10 +242,6 @@ public class IPokedexTest  {
 		return id;
 	}
 	
-	
-	
-	
-	/******************************** HELPER ****************************************/
 	
 	/**
 	 * limit duplicate code and test getter on aquali generated
