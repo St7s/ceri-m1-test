@@ -1,6 +1,19 @@
 package fr.univavignon.pokedex.api;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.univavignon.pokedex.core.Pokedex;
+import fr.univavignon.pokedex.core.PokemonTrainerFactory;
+import fr.univavignon.pokedex.api.*;
 
 /**
  * Trainer POJO.
@@ -8,7 +21,8 @@ import java.io.Serializable;
  * @author fv
  * @author modify by adrie
  */
-public class PokemonTrainer implements Serializable {
+public class PokemonTrainer implements Observer, Serializable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTrainer.class);
 	private static final long serialVersionUID = 5676039693652862951L;
 
 	/** Trainer name. **/
@@ -19,6 +33,9 @@ public class PokemonTrainer implements Serializable {
 	
 	/** Trainer pokedex. **/
 	private final IPokedex pokedex;
+	
+	/** Permet de savoir si le pokedex a deja était mis en observable ou non **/
+	private boolean setObs = false;
 	
 	/**
 	 * Default constructor.
@@ -31,6 +48,7 @@ public class PokemonTrainer implements Serializable {
 		this.name = name;
 		this.team = team;
 		this.pokedex = pokedex;
+		
 	}
 	
 	/**
@@ -54,7 +72,38 @@ public class PokemonTrainer implements Serializable {
 	 * @return pokedex
 	 */
 	public IPokedex getPokedex() {
+		if(setObs == false)
+			((Pokedex)this.pokedex).addObserver(this);
 		return pokedex;
 	}
-	
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("Un nouveau pokemon a était ajoute, on sauvegarde");
+		LOGGER.debug("Un nouveau pokemon a était ajoute, on sauvegarde");
+		
+		StringBuilder sb = new StringBuilder(".");
+		sb.append(File.separator);
+		sb.append("src");
+		sb.append(File.separator);
+		sb.append("main");
+		sb.append(File.separator);
+		sb.append("ressources");
+		sb.append(File.separator);
+		sb.append("db"+File.separator);
+		sb.append(team);
+		sb.append(File.separator);
+		sb.append(name);
+		sb.append(".ser");
+		
+		File f = new File(sb.toString());
+		
+		 // ouverture d'un flux sur un fichier
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(f));
+			 // sérialization de l'objet (on le sauvegarde)
+			oos.writeObject(this) ;
+		} catch (IOException e) { e.printStackTrace(); }
+	}
 }

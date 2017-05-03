@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.univavignon.pokedex.api.IPokedex;
 import fr.univavignon.pokedex.api.IPokemonFactory;
@@ -13,7 +17,8 @@ import fr.univavignon.pokedex.api.PokedexException;
 import fr.univavignon.pokedex.api.Pokemon;
 import fr.univavignon.pokedex.api.PokemonMetadata;
 
-public class Pokedex implements IPokedex, Serializable {
+public class Pokedex extends Observable implements IPokedex, Serializable  {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PokemonTrainerFactory.class);
 	private static final long serialVersionUID = 4469986313363831762L;
 	
 	private List<Pokemon> pokemons;//list des pokemons du pokedex
@@ -84,6 +89,11 @@ public class Pokedex implements IPokedex, Serializable {
 	@Override
 	public int addPokemon(Pokemon pokemon) {
 		this.getPokemons().add(pokemon);
+		System.out.println("addPokemon");
+		LOGGER.debug("addPokemon");
+		setChanged();
+		notifyObservers(pokemon);
+		
 		return this.size()-1;//on retourne l'index relatif
 	}
 
