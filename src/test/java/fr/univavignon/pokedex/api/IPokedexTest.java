@@ -143,10 +143,7 @@ public class IPokedexTest  {
 		assertEquals(133, p2.getIndex());
 		assertEquals("Vaporeon", p2.getName());
 		assertEquals(260, p2.getStamina());
-	
-		
 	}
-	
 	
 	
 	@Test
