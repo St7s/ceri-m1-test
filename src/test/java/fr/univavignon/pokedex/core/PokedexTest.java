@@ -49,7 +49,7 @@ public class PokedexTest extends IPokedexTest {
 		runAssertOnPokemonBulbizarre(); //on verifie les données de bulbisaur
 		
 		
-		File fichier =  new File(File.separator+"src"+File.separator+"main"+File.separator+"ressources"+File.separator+"db"+File.separator+"pokedex.ser") ;
+		File fichier =  new File("."+File.separator+"src"+File.separator+"main"+File.separator+"ressources"+File.separator+"db"+File.separator+"pokedex.ser") ;
 		System.out.println(fichier.getAbsolutePath());
 		// sérialization de l'objet
 		new ObjectOutputStream(new FileOutputStream(fichier)).writeObject(getiPokedexTest()) ;

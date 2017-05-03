@@ -166,7 +166,7 @@ public class IPokedexTest  {
 	@Test(expected=PokedexException.class)
 	public void testPokedexException() throws PokedexException   {
 		assertEquals(0, getiPokedexTest().size());
-		getiPokedexTest().getPokemon(999);	
+		getiPokedexTest().getPokemon(999);
 	}
 	
 	@Test
@@ -174,7 +174,7 @@ public class IPokedexTest  {
 		// on ajoute les 2 pokemons
 		addNewPokemon(getiPokedexTest().createPokemon(0, 613, 64, 4000, 4));
 		addNewPokemon(getiPokedexTest().createPokemon(133, 1984, 172, 3500, 4));
-		
+		assertEquals(2, getiPokedexTest().size());
 		List<Pokemon> list = getiPokedexTest().getPokemons();
 		
 		pokemonBulbizarre = list.get(0);
